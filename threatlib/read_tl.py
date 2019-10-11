@@ -64,7 +64,7 @@ class MarkdownDocumentReader:
         # just text, add it to right paragraph
         self.add_text_to_paragraph(line)
 
-    def get_threatlibrary_name(self):
+    def get_document_name(self):
         return self.sections[1][1].get('Name').strip()
 
     def get_sections(self):
@@ -73,7 +73,7 @@ class MarkdownDocumentReader:
 def main():
     tl_reader = MarkdownDocumentReader()
     tl_reader.from_file(sys.stdin)
-    print(tl_reader.get_threatlibrary_name())
+    print(tl_reader.get_document_name())
     for s in tl_reader.get_sections():
         print(s)
     # print(tl_reader.sections)

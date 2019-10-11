@@ -20,9 +20,9 @@ def render_mitigation(g, title, content):
     print('mitigation', title)
 
 def main():
-    tl_reader = ThreatlibraryReader()
+    tl_reader = MarkdownDocumentReader()
     tl_reader.from_file(sys.stdin)
-    library = tl_reader.get_threatlibrary_name()
+    library = tl_reader.get_document_name()
     g = Digraph('G', engine='dot')
     for title, content in tl_reader.get_sections():
         # is this an attack or a defense?
