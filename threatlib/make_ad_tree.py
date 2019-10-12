@@ -1,7 +1,8 @@
 
 import sys
 
-from read_tl import MarkdownDocumentReader, Threatlibrary, extract_links_from_list
+from MarkdownDocumentReader import MarkdownDocumentReader
+from Threatlibrary import Threatlibrary
 from graphviz import Digraph
 
 render_node_attrs = {

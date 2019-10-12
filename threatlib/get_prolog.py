@@ -1,7 +1,7 @@
 
 import sys
 
-from read_tl import MarkdownDocumentReader
+from MarkdownDocumentReader import MarkdownDocumentReader
 
 def main():
     tl_reader = MarkdownDocumentReader()
