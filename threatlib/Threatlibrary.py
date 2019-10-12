@@ -71,7 +71,6 @@ class Threatlibrary:
             self.add_tl_object(title, content)
 
     def add_tl_object(self, title, content):
-        print(title, content)
         if content.get('Threat') is not None:
             tl_obj = TlThreat(title, content)
         else:

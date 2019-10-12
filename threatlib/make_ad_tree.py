@@ -27,9 +27,12 @@ def render_node(g, title, node_operator, node_attrs):
         label = "<f> %s" % title
     g.node(title, label=label, _attributes=node_attrs)
 
-def render_edge(g, source, destination):
-    print(source,destination)
-    g.edge(source, destination)
+def render_edge(g, source, destination, counter_edge, edge_attrs={}):
+    if counter_edge:
+        style = 'dotted'
+    else:
+        style = 'solid'
+    g.edge(source, destination, style=style, **edge_attrs)
 
 def render_obj(g, tl_obj):
     attrs = render_node_attrs.get(tl_obj.get_node_type())
@@ -38,18 +41,16 @@ def render_obj(g, tl_obj):
 
     if operator == 'or':
         for v in tl_obj.get_variants():
-            render_edge(g, tl_obj.get_name(), v)
+            render_edge(g, tl_obj.get_name(), v, False)
     elif operator == 'and':
         for v in tl_obj.get_steps():
-            render_edge(g, tl_obj.get_name(), v)
+            render_edge(g, tl_obj.get_name(), v, False)
 
     for v in tl_obj.get_mitigations():
-        print('x',v)
-        render_edge(g, tl_obj.get_name(), v)
+        render_edge(g, tl_obj.get_name(), v, True)
 
     for v in tl_obj.get_threatened_mitigations():
-        print('y',v)
-        render_edge(g, v, tl_obj.get_name())
+        render_edge(g, v, tl_obj.get_name(), True)
 
 def main():
     library = Threatlibrary()
@@ -62,7 +63,6 @@ def main():
         'rankdir': 'LR',
     })
     for tl_obj in library.get_tl_objects():
-        print(tl_obj)
         render_obj(g, tl_obj)
     g.view()
 
