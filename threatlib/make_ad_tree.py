@@ -51,12 +51,15 @@ def render_obj(g, tl_obj):
         render_edge(g, v, tl_obj.get_name())
 
 def main():
-    doc_reader = MarkdownDocumentReader()
-    doc_reader.from_file(sys.stdin)
     library = Threatlibrary()
-    library.from_markdown_document_reader(doc_reader)
-    # library = tl_reader.get_document_name()
-    g = Digraph('G', engine='dot')
+    for fn in sys.argv[1:]:
+        with open(fn, 'r') as f:
+            doc_reader = MarkdownDocumentReader()
+            doc_reader.from_file(f)
+            library.from_markdown_document_reader(doc_reader)
+    g = Digraph('G', engine='dot', graph_attr = {
+        'rankdir': 'LR',
+    })
     for tl_obj in library.get_tl_objects():
         print(tl_obj)
         render_obj(g, tl_obj)
